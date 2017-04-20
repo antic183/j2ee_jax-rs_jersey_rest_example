@@ -22,8 +22,11 @@ public class HelloWorldService {
     @POST
     @Path("/pdf")
     @Consumes({MediaType.MULTIPART_FORM_DATA})
-    public Response uploadPdfFile(@FormDataParam("fileFormAttribute") InputStream fileInputStream,
-                                  @FormDataParam("fileFormAttribute") FormDataContentDisposition fileMetaData) throws Exception {
+    public Response uploadPdfFile(
+        @FormDataParam("fileFormAttribute") InputStream fileInputStream,
+        @FormDataParam("fileFormAttribute") FormDataContentDisposition fileMetaData,
+        @FormDataParam("fileNameFormAttribute") String desiredFileName
+    ) throws Exception {
         // http://localhost:8080/rest/hello/pdf
         String UPLOAD_PATH = "C:\\Users\\Antic\\Desktop\\Upload_Files\\";
         try {
@@ -39,6 +42,6 @@ public class HelloWorldService {
         } catch (IOException e) {
             return Response.ok("ERROR !!" + e.getMessage()).build();
         }
-        return Response.ok("Data uploaded successfully !!").build();
+        return Response.ok("Data uploaded successfully !! desired filename = " + desiredFileName).build();
     }
 }
